@@ -1,0 +1,1 @@
+(()=>{'use strict';const themes=['royal','cinema','violet'];for(const slug of themes){const el=document.getElementById('link-'+slug);if(!el)continue;const e=AMM.event(slug),guest=e?.guests?.[0];el.href=slug+'/index.html'+(guest?AMM.guestQuery(guest):'');} })();

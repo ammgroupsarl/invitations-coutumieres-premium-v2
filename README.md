@@ -1,75 +1,66 @@
-# AMMGROUP Digital — Collection d'invitations coutumières Premium V2
+# AMMGROUP Digital — Invitations de mariage coutumier (édition HTML/CSS/JavaScript)
 
-Trois sites de démonstration **responsive** :
+**Aucune dépendance Python, aucun framework et aucune base de données.** Ce projet est un ensemble de pages statiques fonctionnant sur GitHub Pages, et non la version Python livrée précédemment.
 
-- `royal/index.html` — **L'Éternel**, ivoire et or ;
-- `cinema/index.html` — **Notre Histoire**, cinéma noir et bronze ;
-- `violet/index.html` — **Nos Racines**, violet royal et or.
+## Ouvrir le projet
 
-Le fichier `index.html` à la racine présente le catalogue des trois univers. Déployé dans le dépôt `ammgroupsarl/invitations-mariage-coutumier`, son adresse sera :
+- `index.html` : catalogue des **trois modèles**.
+- `royal/index.html` : invitation **L’Éternel**, ouverture par **enveloppe rouge**.
+- `cinema/index.html` : invitation **Notre Histoire**, ouverture par **cœur rouge symétrique**.
+- `violet/index.html` : invitation **Nos Racines**, ouverture par **rose rouge**.
+- `admin.html` : studio de personnalisation **local** (pas de mot de passe : ce n'est pas une interface sécurisée côté serveur).
+- `print.html` : invitation nominative imprimable. Utiliser le bouton **Enregistrer au format PDF**, puis choisir « Enregistrer au format PDF » dans Chrome.
 
-https://ammgroupsarl.github.io/invitations-mariage-coutumier/
+Les trois invitations sont responsive (téléphone, tablette, ordinateur). La musique originale démarre **au clic** sur le bouton d’ouverture ; un navigateur peut bloquer toute tentative de lecture sans interaction préalable. Le diaporama fait défiler les photos **verticalement du bas vers le haut**.
 
-## Fonctionnalités de la démonstration
+Pour visualiser les pages, ouvrir directement `index.html` dans Chrome. Pour utiliser le studio local en conservant les données entre les pages, le plus fiable est de servir le dossier avec **Live Server dans VS Code** (aucune installation Python), ou le publier sur GitHub Pages.
 
-- Page d'accueil courte, élégante et adaptée au téléphone et à l'ordinateur ;
-- Nom de l'invité clairement visible ;
-- Menu responsive et raccourcis ;
-- Détails affichés dans des fenêtres : invitation, programme coutumier, histoire, familles, tenue, menu, galerie, accès et contacts ;
-- Compte à rebours et animations douces, désactivables via les préférences d'accessibilité ;
-- Formulaire RSVP **local uniquement** ;
-- Carte « Ma table » avec QR scannable ouvrant la fiche de table ;
-- PDF **nominatif de démonstration**, téléchargeable ;
-- Musique d'ambiance **originale**, activable manuellement (pas de lecture automatique).
+## Personnaliser sans coder
 
-## Deux invités fictifs pour tester
+1. Ouvrir `admin.html`.
+2. Choisir Royal, Cinéma ou Violet dans le menu.
+3. Modifier le mariage, le programme, le dress code, les contacts et les photos. Les données sont sauvegardées avec **localStorage dans ce navigateur seulement**.
+4. Télécharger `data.js` via **Exporter data.js**.
+5. Remplacer le fichier `assets/js/data.js` du projet par celui qui vient d’être exporté et republier le site sur GitHub Pages.
 
-| Code | Invité | Table | Places |
-|------|--------|-------|--------|
-| `demo-jk` | Monsieur Jean Kabeya | Table 08 | 2 |
-| `demo-am` | Madame Amina Mulumba | Table 03 | 1 |
+Les **photos** acceptent des URL HTTPS ou de petites images locales (environ 500 Ko au maximum). Les URL externes nécessitent une connexion Internet et le consentement/droit d’utilisation des photos. La piste de musique originale se trouve dans `assets/media/ambiance-originale.wav`.
 
-Exemple : `violet/?invite=demo-jk`.
+## 180 invitations nominatives
 
-Les QR codes sont prévus pour les adresses GitHub Pages du dépôt cité plus haut. Après publication, scanner le QR sur une invitation conduit à `violet/table.html?invite=demo-jk`, etc.
+Dans `admin.html` → **Invités & tables** :
 
-## Personnaliser les sites
+- Ajouter manuellement chaque invité ou importer un CSV avec les colonnes `nom;places;table;zone` (les virgules sont également acceptées).
+- Cliquer sur **Exporter les liens CSV** : un lien différent est produit pour chaque personne/couple.
+- Envoyer le lien à l'invité par WhatsApp. Il affichera son nom, ses places, sa table et un code QR qui ouvre la fiche correspondante.
+- Exemple d’import dans `examples/invites-exemple.csv`.
+- **Conserver une sauvegarde privée JSON** via le studio pour retrouver la liste et les liens sur un autre ordinateur.
 
-**Un seul fichier de configuration :** `assets/config.js`.
+**Attention :** dans cette version sans serveur, les informations du destinataire sont encodées dans son URL ; elles ne sont **ni chiffrées ni vérifiées**. La personne qui possède le lien peut le lire ou le modifier. Les QR codes servent uniquement à retrouver une table : **ils ne doivent pas être utilisés comme contrôle d’entrée sécurisé**, surtout pour un événement payant ou avec accès restreint.
 
-Modifier : noms, date, lieu, dress code, noms des familles, informations de contacts, déroulement coutumier et liste des invités pour la démonstration. Pour afficher une **vraie photo du couple**, déposer un fichier dans `assets/photo-couple.webp`, puis renseigner `couplePhoto: '../assets/photo-couple.webp'`.
+## RSVP sans backend
 
-Les informations de démonstration (noms, date, tables, zones, lieux) **ne doivent pas être considérées comme de vraies données**.
+Le formulaire RSVP fonctionne localement dans le navigateur de l’invité. Pour que l’organisation reçoive la réponse, le bouton **Envoyer ma réponse sur WhatsApp** ouvre un message prérempli vers le numéro configuré (en format international, par exemple `243...`). Sans ce numéro, aucune réponse n’est transmise. Le studio ne peut **pas** centraliser automatiquement les réponses envoyées depuis plusieurs téléphones ; cette fonction exigerait un backend ou un service externe (par exemple une base de données distante).
 
-**Contacts :** ne renseigner que les numéros WhatsApp et les e-mails réellement confirmés. Tant que les contacts restent vides, le site n'affiche pas de faux moyens de contact.
+## Déploiement GitHub Pages
 
-**PDF :** les six PDF fournis correspondent aux deux invités fictifs sur les trois thèmes. Ils ne se mettent pas à jour automatiquement en modifiant `config.js` ; ils doivent être régénérés pour les invités réels.
-
-## Limites à lever avant une prestation réelle de 180 invités
-
-Cette version est une **démo front-end statique**, pas une solution complète de gestion d'événement.
-
-- Le RSVP est stocké uniquement dans le navigateur de l'invité (`localStorage`) ; les organisateurs ne reçoivent aucune confirmation.
-- Les deux codes de démonstration sont publics et **ne sécurisent pas l'entrée**. Ne les utilisez pas pour autoriser des accès.
-- Pour les 180 invités, prévoir un backend sécurisé, des liens opaque à usage individuel, une base privée, un tableau de bord et un système de scan/pointage avec gestion des invitations déjà utilisées.
-- Les informations privées de vrais invités **ne doivent pas** être stockées dans les sources d'un dépôt GitHub public.
-- Les contacts, les lieux et le programme doivent être validés avant publication.
-
-## Publier sur GitHub Pages
-
-Si votre dépôt existe déjà et que vous avez extrait l'archive sur votre ordinateur, placez-vous dans le dossier contenant le **`index.html` racine**, puis :
+Décompresser le ZIP, copier **le contenu du dossier** dans la racine d’un dépôt GitHub, puis :
 
 ```powershell
-git status -sb
-git add .
-git commit -m "feat: refonte premium responsive des invitations coutumieres"
-git push origin main
+git init -b main
+git add -A
+git commit -m "feat: trois invitations HTML CSS JS"
+gh repo create ammgroupsarl/invitations-coutumieres-html-v7 --public --source . --remote origin --push
 ```
 
-Les fichiers sont entièrement statiques et compatibles avec GitHub Pages (pas de build Node nécessaire). Le fichier `.nojekyll` est inclus.
+Pour un dépôt existant, exécuter plutôt `git add -A`, `git commit -m "Mise à jour invitations"`, `git push origin main`.
 
-## Licence et média
+Activer GitHub Pages depuis **Settings → Pages → Deploy from a branch → main → /(root)**.
 
-- Les illustrations décoratives proviennent des maquettes précédemment réalisées pour ce projet.
-- Le fichier `musique-originale.wav` est une courte composition originale générée pour cette démonstration ; elle n'utilise pas d'enregistrement commercial.
-- Les noms et les invités sont fictifs.
+## Confidentialité et limites
+
+- Le fichier `assets/js/data.js` distribué avec le site contient uniquement des **mariés et invités fictifs**.
+- **Ne jamais publier** la sauvegarde JSON des vrais invités dans un dépôt public. Les coordonnées personnelles doivent être communiquées avec l’accord des personnes.
+- L'administration dans `admin.html` est un éditeur de configuration **local**, pas une authentification : tout visiteur peut l’ouvrir et modifier *sa propre copie locale*. Les modifications ne touchent pas ton GitHub sans un nouveau push.
+- L’affichage, les animations, la musique, les photos, les fiches de tables, le QR et l’impression PDF fonctionnent sans Python ; seuls la collecte centrale des RSVP et le contrôle sécurisé des entrées sont exclus.
+
+Crédits : QRCode, Kazuhiko Arase, licence MIT (voir `LICENSE-QR.txt`). Photos de démonstration : liens Unsplash des fichiers de configuration ; remplacer par des photos autorisées avant livraison client.

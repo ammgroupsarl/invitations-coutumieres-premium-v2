@@ -1,0 +1,5 @@
+QRCode for JavaScript
+Copyright (c) 2009 Kazuhiko Arase
+Source: http://www.d-project.com/
+License: MIT License (https://opensource.org/licenses/MIT)
+The QR encoder has been bundled from qrcode-terminal/vendor/QRCode for standalone browser use.
